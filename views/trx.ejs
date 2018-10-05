@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>trxid <%= data.transaction_id %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style>
+    table{
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .ajustando{
+        padding: 10px;
+    }
+    .color{
+        color: white;
+        background-color: #5fb974ea;
+        border-color: #5fb974ea;
+        border: round;
+        border-bottom-left-radius: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin: 10px;
+    }
+    th{
+        text-align: justify;
+        width: 180px;
+    }
+    th.b{
+        display:inline-block;
+        margin-left:auto;
+        margin-right:auto;
+        text-align:center;
+        width: 50px;
+    }
+    tr{
+        text-align: left;
+        
+    }
+    tr:last-child{
+        text-align: left;
+        border-bottom: none;
+    }
+    .hyphenation {
+     word-break: break-all;
+     
+     word-break: break-word; 
+  
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+    -ms-hyphens: auto;
+        hyphens: auto;
+}
+    </style>
+</head>
+<body >
+    <% include ./staticos/header %>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 color ajustando">
+                <a><b>TRX id</b> <%= data.transaction_id %> <b>block number</b> <%= data.block_num %></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 color">
+                <table>
+                    <% if(data.operations[0][0]=='vote'){ %>
+                        <tr>
+                            <th><b>type operations:</b></th>
+                            <td ><%= data.operations[0][0] %></td>
+                        </tr>
+                        <tr><th><b>voter:</b></th><td><%= data.operations[0][1].voter %></td></tr>
+                        <tr><th><b>author:</b></th><td><%= data.operations[0][1].author %></td></tr>
+                        <tr><th><b>permlink:</b></th><td><%= data.operations[0][1].permlink %></td></tr>
+                        <tr><th><b>weight:</b></th><td><%= data.operations[0][1].weight %></td></tr>
+                    <% } %>
+
+                    <% if(data.operations[0][0]=='comment'){ %>
+                        <tr><th><b>type operations:</b></th><td ><% if(data.operations[0][1].parent_author=='') { %><a>comment</a><% }else{ %><a>replied</a><% } %></td></tr>
+
+                        <tr><th><b>parent author:</b></th><td><% if(data.operations[0][1].parent_author){ %><%= data.operations[0][1].parent_author %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr><th><b>parent permlink:</b></th><td><% if(data.operations[0][1].parent_permlink){ %><%= data.operations[0][1].parent_permlink %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr><th><b>author:</b></th><td><% if(data.operations[0][1].author){ %><%= data.operations[0][1].author %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr><td><b>permlink:</b></td><td><% if(data.operations[0][1].permlink){ %><%= data.operations[0][1].permlink %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr><th><b>title:</b></th><td><% if(data.operations[0][1].title){ %><%= data.operations[0][1].title %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr><th><b>weight:</b></th><td><% if(data.operations[0][1].weight){ %><%= data.operations[0][1].weight %><% }else{ %><%= `null` %><% } %></td></tr>
+
+                        <tr ><th><b>json_metadata:</b></th><td><div class="hyphenation text-dark"><% if(data.operations[0][1].json_metadata){ %><%= data.operations[0][1].json_metadata %><% }else{ %><%= `null` %><% } %></div></td></tr><% } %>
+                    
+                    <% if(data.operations[0][0]=='custom_json'){ %>
+                        <% var json1=JSON.parse(data.operations[0][1].json) %>
+                        <tr>
+                            <th><b>type operations:</b></th>
+                            <td ><%= json1[0] %></td>
+                        </tr>
+                        <% if(json1[0]=='reblog') { %>
+                            <tr><th><b>account:</b></th><td><%= json1[1].account %></td></tr>
+                            <tr><th><b>author:</b></th><td><%= json1[1].author %></td></tr>
+                            <tr><th><b>permlink:</b></th><td><%= json1[1].permlink %></td></tr>
+                        <% } %>
+                    
+                    <% } %>
+
+
+                    <% if(data.operations[0][0]=='account_create'){ %>
+                        <tr>
+                            <th><b>type operations:</b></th>
+                            <td ><%= data.operations[0][0] %></td>
+                        </tr>
+                        <tr><th><b>Creator Account:</b></th><td><%= data.operations[0][1].creator %></td></tr>
+                        <tr><th><b>New-Account-Name:</b></th><td><%= data.operations[0][1].new_account_name %></td></tr>
+                        <tr><th><b>Fee:</b></th><td><%= data.operations[0][1].fee  %></td></tr>
+                    
+                    <% } %>
+
+
+                    
+                        
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

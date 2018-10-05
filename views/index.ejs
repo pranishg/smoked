@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>smoked data</title>
+    <script src="./staticos/app.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="./staticos/app.js"></script>
+    <style>
+    .tablestyle{
+        color: #f8f9fa!important;
+        background-color: #28a745;
+        border-color: #28a745;
+    }
+    table{
+        border-radius: .25rem;
+    }
+    tr{
+        text-align:left;
+        border-bottom: 1px solid #000000;
+    }
+    .titletable{
+        background-color: #343a40!important;
+        text-align: center;
+        color: white;
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+    .trtitletable{
+        border-top-left-radius: .25rem;
+        border-top-right-radius: .25rem;
+    }
+    </style>
+</head>
+<body >
+    <% include ./staticos/header %>
+    <br>
+    <div id="prueba">
+
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-lg-6" id="datosBlock">
+
+                        <div class="row alert alert-success " >
+                                <div class="col"><b>witness:</b><p id="witness_block"></p> </div>
+                                <div class="col"><b>Number transaction:</b><p id="transaction_block"></p></div>
+                                
+                        </div>
+                        <div class="row alert alert-success ">
+                                <div class="col">
+                                    <b>smokeds :</b> <a id="votes_block">0</a>
+                                    <b>comment :</b> <a id="comment_block">0</a>
+                                    <b>transfer :</b> <a id="traslate_block">0</a>
+                                    <b>custom json :</b> <a id="custom">0</a>
+                                </div>
+                        </div>
+                        <div class="row" id="transaccion_block">
+                            
+                        </div>
+            </div>
+            <div class="col-sm-12 col-lg-6">
+                <table class="tablestyle">
+                    <tr class="trtitletable">
+                        <td colspan="2" class="titletable"><b>Global Properties</b></td>
+                    </tr>
+                    <tr>
+                        <th>head block number:</th>
+                        <td id="head_block_number">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>head block id:</th>
+                        <td id="head_block_id">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>current witness:</th>
+                        <td id="current_witness">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>time:</th>
+                        <td id="time">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>current supply:</th>
+                        <td id="current_supply">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>total vesting fund SMOKE:</th>
+                        <td id="total_vesting_fund_steem">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>total vesting shares:</th>
+                        <td id="total_vesting_shares">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>total reward fund SMOKE:</th>
+                        <td id="total_reward_fund_steem">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>total reward shares2:</th>
+                        <td id="total_reward_shares2">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>pending rewarded vesting shares:</th>
+                        <td id="pending_rewarded_vesting_shares">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>pending rewarded vesting SMOKE:</th>
+                        <td id="pending_rewarded_vesting_steem">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>maximum block size:</th>
+                        <td id="maximum_block_size">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>current aslot:</th>
+                        <td id="current_aslot">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>recent slots filled:</th>
+                        <td id="recent_slots_filled">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>participation count:</th>
+                        <td id="participation_count">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>last irreversible block num:</th>
+                        <td id="last_irreversible_block_num">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>vote power reserve rate:</th>
+                        <td id="vote_power_reserve_rate">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>current reserve ratio:</th>
+                        <td id="current_reserve_ratio">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>average block size:</th>
+                        <td id="average_block_size">Loading...</td>
+                    </tr>
+                    <tr>
+                        <th>max virtual bandwidth:</th>
+                        <td id="max_virtual_bandwidth">Loading...</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= `@${u}` %></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style>
+    .op{
+        opacity: 0.3;
+        filter: alpha(opacity=30);
+    }
+    .op:hover {
+        opacity: 1.0;
+        filter: alpha(opacity=100);
+    }
+
+    table {
+        display: table;
+        border-collapse: separate;
+        border-spacing: 2px;
+        border-color: #000000;
+    }
+    .textoajust{
+        word-wrap: break-word
+    }
+    th{
+        text-align:left;
+        border-bottom: 1px solid #000000;
+    }
+    td{
+        text-align:right;
+        border-bottom: 1px solid #000000;
+    }
+    .trxtag{
+        font-size: 11px;
+        float: right;
+        margin: -1px 0 0 8px;
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    }
+    .texto{
+        color: #000000!important;
+    }
+    a{
+        color: #972f2fcb;
+    }
+    a:link{
+        text-decoration: none;
+    }
+    </style>
+</head>
+<body>
+    <% include ./staticos/header %>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-sm-12" style="margin-top: 20px;margin-bottom: 20px;">
+                <h1 class="texto">@<%= u %></h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-12">
+                <div class="alert alert-success" role="alert">
+                    <center><h4 class="alert-heading"><%= (sp).toFixed(3) %> SMOKE POWER</h4></center>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style=<%= `width:${datau[0].voting_power/100}%` %> aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><%= datau[0].voting_power/100+`%` %></div>
+                    </div>
+                    
+                    <hr>
+                        <center>
+                            <h5>Age:<%= parseInt(((new Date())-(new Date(datau[0].created)))/24/60/60/1000) %>DAYS</h5>
+                            <span class="mb-0 op" >view on:<a href=<%= `https://smoke.io/@${u}` %> >smoke.io</a></span>
+                        </center>
+                </div>
+                <div class="alert alert-success" role="alert">
+                        <table class="col-12 col-sm-12">
+                            <% if(datau[0].id) {%>
+                                <tr>
+                                    <th>id:</th>
+                                    <td aling><%= datau[0].id %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].name) {%>
+                                <tr>
+                                    <th>Name:</th>
+                                    <td><%= datau[0].name %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].proxy) {%>
+                                <tr>
+                                    <th>proxy:</th>
+                                    <td><%= datau[0].proxy %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].created) {%>
+                                <tr>
+                                    <th>created:</th>
+                                    <% g=new Date(datau[0].created),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_owner_update) {%>
+                                <tr>
+                                    <th>last owner update:</th>
+                                    <% g=new Date(datau[0].last_owner_update),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_account_update) {%>
+                                <tr>
+                                    <th>last account update:</th>
+                                    <% g=new Date(datau[0].last_account_update),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].recovery_account) {%>
+                                <tr>
+                                    <th>recovery account:</th>
+                                    <td><%= datau[0].recovery_account %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].post_count) {%>
+                                <tr>
+                                    <th>post count:</th>
+                                    <td><%= datau[0].post_count %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_vote_time) {%>
+                                <tr>
+                                    <th>last vote time:</th>
+                                    <% g=new Date(datau[0].last_vote_time),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].balance) {%>
+                                <tr>
+                                    <th> balance:</th>
+                                    <td><%=  datau[0].balance %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].reward_steem_balance) {%>
+                                <tr>
+                                    <th>reward SMOKE balance:</th>
+                                    <td><%=  datau[0].reward_steem_balance %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].reward_vesting_balance) {%>
+                                <tr>
+                                    <th>reward vesting balance:</th>
+                                    <td><%=  datau[0].reward_vesting_balance %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].reward_vesting_steem) {%>
+                                <tr>
+                                    <th>reward vesting SMOKE:</th>
+                                    <td><%=  datau[0].reward_vesting_steem %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].vesting_shares) { %>
+                                <tr>
+                                    <th>vesting shares:</th>
+                                    <td><%=  datau[0].vesting_shares %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].vesting_withdraw_rate) { %>
+                                <tr>
+                                    <th>vesting withdraw rate:</th>
+                                    <td><%=  datau[0].vesting_withdraw_rate %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].vesting_withdraw_rate) { %>
+                                <tr>
+                                    <th>vesting withdraw rate:</th>
+                                    <td><%=  datau[0].vesting_withdraw_rate %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].next_vesting_withdrawal) { %>
+                                <tr>
+                                    <th>next vesting withdrawal:</th>
+                                    <% g=new Date(datau[0].next_vesting_withdrawal),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].withdrawn) { %>
+                                <tr>
+                                    <th>withdrawn:</th>
+                                    <td><%=  datau[0].withdrawn %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].to_withdraw) { %>
+                                <tr>
+                                    <th>to withdraw:</th>
+                                    <td><%=  datau[0].to_withdraw %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].withdraw_routes) { %>
+                                <tr>
+                                    <th>withdraw routes:</th>
+                                    <td><%=  datau[0].withdraw_routes %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].curation_rewards) { %>
+                                <tr>
+                                    <th>curation rewards:</th>
+                                    <td><%=  datau[0].curation_rewards %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].posting_rewards) { %>
+                                <tr>
+                                    <th>posting rewards:</th>
+                                    <td><%=  datau[0].posting_rewards %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].average_bandwidth) { %>
+                                <tr>
+                                    <th>average bandwidth:</th>
+                                    <td><%=  datau[0].average_bandwidth %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].lifetime_bandwidth) { %>
+                                <tr>
+                                    <th>lifetime bandwidth:</th>
+                                    <td><%=  datau[0].lifetime_bandwidth %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_bandwidth_update) { %>
+                                <tr>
+                                    <th>last bandwidth update:</th>
+                                    <% g=new Date(datau[0].last_bandwidth_update),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_post) { %>
+                                <tr>
+                                    <th>last post:</th>
+                                    <% g=new Date(datau[0].last_post),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+                            <% if(datau[0].last_root_post) { %>
+                                <tr>
+                                    <th>last root post:</th>
+                                    <% g=new Date(datau[0].last_root_post),options = {weekday: "long", year: "numeric", month: "long", day: "numeric"} %>
+                                    <td><%= g.toLocaleDateString("en-EN", options) %></td>
+                                </tr>
+                            <% } %>
+
+
+                            <% if(datau[0].witnesses_voted_for) { %>
+                                <tr>
+                                    <th>witnesses voted for:</th>
+                                    <td><%=  parseInt(datau[0].witnesses_voted_for) %></td>
+                                </tr>
+                            <% } %>
+                        </table>
+                </div>
+                <div class="alert alert-success" role="alert">
+                    <center><h4 class="alert-heading">json metadata</h4></center>
+                    <p class="text-danger textoajust"><%= (datau[0].json_metadata).toString() %></p>
+                </div>
+                <% if(datau[0].proxy==''){ %>
+                    <% if(datau[0].witness_votes[0]){ %>
+                        <div class="alert alert-success" role="alert">
+                                <center><h4 class="alert-heading">witness votes</h4></center>
+                                <% var x1=0 %>
+                                <% for(var i=1;i<= datau[0].witness_votes.length+1;i++){%>
+                                    <% if(datau[0].witness_votes[i-1]) { %>
+                                        <b><%= i %>:</b><%= datau[0].witness_votes[i-1] %></br>
+                                        <% x1=x1+1 %>
+                                    <% } %>
+                                <% } %>
+                                <b>witness votes free : </b><%= `${30-x1}` %>
+                        </div>
+                    <% } %>
+                <% }else{ %>
+                    <div class="alert alert-success" role="alert">
+                        <center><h2 class="alert-heading">proxy witness: <%= datau[0].proxy %></h2></center>
+                    </div>
+                <% } %>
+            </div>
+            <div class="col-lg-8 col-sm-12">
+                <% datos.forEach((user)=>{ %>
+
+                    <% if(user[1].op[0]=='vote'){ %>
+                        <div class="alert alert-success" role="alert">
+                                
+                                        <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                            <a class="trxtag" ><%= `virtual` %></a>
+                                        <% }else{ %>
+                                            <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                                        <% } %>
+                                
+                            <%  if(user[1].op[1].voter!=u) { %>
+                                <a href='/@<%=`${user[1].op[1].voter}` %>' ><%= user[1].op[1].voter %></a>
+                            <% }else{ %>
+                                <%= `${user[1].op[1].voter}` %>
+                            <% } %>
+                            
+                            <b> smoked </b> 
+                            
+                            <a href=<%=`https://smoke.io/@${user[1].op[1].author}/${user[1].op[1].permlink}` %> />@<%= user[1].op[1].author %>/<%= `${user[1].op[1].permlink}`.substring(0,25) %>...</a>
+                            (<%= (user[1].op[1].weight)/100 %>%)
+
+                        </div>
+                    <% } %>
+        
+                    <% if(user[1].op[0]=='account_create' ){ %>
+                        <div class="alert alert-success" role="alert">
+                            <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                <a class="trxtag" ><%= `virtual` %></a>
+                            <% }else{ %>
+                                <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                            <% } %>
+                            <%= `${user[1].op[1].creator} ` %>
+                            <b>Create Account</b>
+                            <%= ` ${user[1].op[1].new_account_name}` %> 
+                        </div>
+                    <% } %>
+
+                    <% if(user[1].op[0]=='claim_reward_balance' ){ %>
+                        <div class="alert alert-success" role="alert">
+                            <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                <a class="trxtag" ><%= `virtual` %></a>
+                            <% }else{ %>
+                                <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                            <% } %>
+                            <%= `${user[1].op[1].account} ` %>
+                            <b>claim reward balance</b>
+                            <%= user[1].op[1].reward_vests %>
+                            <% if(user[1].op[1].reward_vests && user[1].op[1].reward_vests){ %> <%= ' and ' %> <% } %>
+                            <%= user[1].op[1].reward_vests %>
+                        </div>
+                    <% } %>
+                    
+                    <% if(user[1].op[0]=='comment'){ %>
+                        <div class="alert alert-success" role="alert">
+                            <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                <a class="trxtag" ><%= `virtual` %></a>
+                            <% }else{ %>
+                                <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                            <% } %>
+                            <% if(user[1].op[1].parent_author!=''){ %>
+
+                                <% if(user[1].op[1].author!=u) {%>
+                                    <a href=<%= `@${user[1].op[1].author}` %> ><%= `${user[1].op[1].author} ` %></a>
+                                <% }else{ %>
+                                    <%= `${user[1].op[1].author} ` %>
+                                <% } %>
+
+                                <b>replied to</b> 
+
+                                <% if(user[1].op[1].parent_author!=u) {%>
+                                    <a href=<%= `@${user[1].op[1].parent_author}` %> ><%= `${user[1].op[1].parent_author} ` %></a>
+                                <% }else{ %>
+                                    <%= `${user[1].op[1].parent_author} ` %>
+                                <% } %>
+                                
+                                <br>
+                                <a href=<%= `https://smoke.io/@${user[1].op[1].author}/${user[1].op[1].permlink}` %> ><%= `${user[1].op[1].permlink}` %></a>
+                            <% }else{ %>
+                                <%= `${user[1].op[1].author} ` %> <b>authored a post: </b>  <%= `${user[1].op[1].permlink.substring(0,25)}...` %>
+                            <% } %> 
+                        </div>
+                    <% } %>
+
+
+                    <% if(user[1].op[0]=='producer_reward'){ %>
+                        <div class="alert alert-success" role="alert">
+                            <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                <a class="trxtag" ><%= `virtual` %></a>
+                            <% }else{ %>
+                                <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                            <% } %>
+                            <%= `${user[1].op[1].producer} ` %> <b>produced</b><%= ` ${user[1].op[1].vesting_shares}` %>
+                        </div>
+                    <% } %>
+
+                    <% if(user[1].op[0]=='custom_json'){ %>
+                        <% if(user[1].op[1].json){ %>
+                            <% var dtyu=JSON.parse(user[1].op[1].json) %>
+                                <% if(dtyu[0]=='reblog'){ %>
+                                    <div class="alert alert-success" role="alert">
+                                        <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                            <a class="trxtag" ><%= `virtual` %></a>
+                                        <% }else{ %>
+                                            <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                                        <% } %>
+                                        <% if(dtyu[1].account!=u) {%>
+                                            <a href=<%= `@${dtyu[1].account}` %> ><%= `${dtyu[1].account} ` %></a>
+                                        <% }else{ %>
+                                            <%= `${dtyu[1].account} ` %>
+                                        <% } %>
+
+                                        <b> resmoked </b>
+
+                                        <% if(dtyu[1].author!=u) {%>
+                                            <a href=<%= `@${dtyu[1].author}` %> ><%= `${dtyu[1].author} ` %></a>
+                                        <% }else{ %>
+                                            <%= `${dtyu[1].author} ` %>
+                                        <% } %>
+
+                                    
+                                    </br>
+                                        <a href=<%= `https://smoke.io/@${dtyu[1].author}/${dtyu[1].permlink}` %> ><%= dtyu[1].permlink %></a>
+                                    </div>
+                                <% } %>
+                        <% } %>
+                    <% } %>
+
+
+                    <% if(user[1].op[0]=='author_reward'){ %>
+                        <div class="alert alert-success" role="alert">
+                                <% if(user[1].trx_id=='0000000000000000000000000000000000000000'){ %>
+                                    <a class="trxtag" ><%= `virtual` %></a>
+                                <% }else{ %>
+                                    <a class="trxtag" href=<%= `/trx/${user[1].trx_id}` %> ><%= user[1].trx_id.substring(0,8) %></a>
+                                <% } %>
+                                <%  if(user[1].op[1].voter!=u) { %>
+                                    <a href='/@<%=`${user[1].op[1].author}` %>' ><%= user[1].op[1].author %></a>
+                                <% }else{ %>
+                                    <%= `${user[1].op[1].author}` %>
+                                <% } %>
+                            <b>author reward</b><%= `${user[1].op[1].steem_payout}, ${user[1].op[1].vesting_payout} of ` %><br>
+                            <a href=<%= `https://smoke.io/@${user[1].op[1].author}/${user[1].op[1].permlink}` %> ><%= user[1].op[1].permlink %></a>
+                        </div>
+                    <% } %>
+        
+                <% }); %>
+                <% if(numPages>1){ %>
+                    <div class="">
+                        <nav class="textoajust" aria-label="...">
+                            <ul class="pagination pagination-md">
+                                <% var contadorpage=1%>
+                                <% for(var gh=1;gh< numPages;gh++) { %>
+                                    <li class="page-item">
+                                        <a class="page-link" href=<%= `/@${u}?page=${gh}` %> ><%= gh %></a>
+                                    </li>
+                                    <% contadorpage++ %>
+                                        <% if(contadorpage==10){ %>
+                                            <% contadorpage=0 %>
+                                            </br>
+                                        <% } %>
+                                <% } %>
+                            </ul>
+                        </nav>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
