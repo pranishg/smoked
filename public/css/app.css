@@ -1,0 +1,23 @@
+.tablestyle{
+    color: #f8f9fa!important;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+table{
+    border-radius: .25rem;
+}
+tr{
+    text-align:left;
+    border-bottom: 1px solid #000000;
+}
+.titletable{
+    background-color: #343a40!important;
+    text-align: center;
+    color: white;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+.trtitletable{
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}

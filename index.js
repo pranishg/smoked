@@ -5,13 +5,8 @@ const morgan = require('morgan')
 const path = require("path")
 const favicon = require('serve-favicon');
 const nocache = require('nocache')
-
 const wls = require("wlsjs");
 wls.api.setOptions({ url: 'https://rpc.smoke.io' });
-wls.config.set("address_prefix","SMK")
-wls.config.set("chain_id","1ce08345e61cd3bf91673a47fc507e7ed01550dab841fd9cdb0ab66ef576aaf0")
-
-
 
 
 app.set('view engine', 'ejs');
@@ -30,7 +25,7 @@ app.use(favicon(path.join(__dirname,'views','favicon.ico')));
 
 
 
-app.use(express.static(__dirname + '/views'));
+app.use(express.static(__dirname + '/public'));
 
 
 
