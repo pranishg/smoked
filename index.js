@@ -31,7 +31,7 @@ app.use(express.static(__dirname + '/public'));
 
 //rutas de renderisado
 app.get('/',(req,res)=>{
-    res.render("index")
+    res.status(200).render("index")
 })
 var data=[]
 var last_trans
@@ -106,11 +106,11 @@ app.get('/:id',(req,res)=>{
         user.toLowerCase();
         cargarhistorial(user.substr(2,user.length),-1,(data,err,datau)=>{
             if(err)
-                res.render("errores")
+                res.status(200).render("errores")
             else{
                 confis((gsp)=>{
                     if(manejoerrores){
-                        res.render("errores")
+                        res.status(200).render("errores")
                     }
                     if(gsp){
                         var nPages=parseInt(data.length)/100,
@@ -118,7 +118,7 @@ app.get('/:id',(req,res)=>{
                             pagef2=(parseInt(pagef)+101)>data.length ? data.length : parseInt(pagef)+101,
                             pagefinal= pagef && pagef2 ? data.slice(pagef,pagef2) : data.slice(0,101)
 
-                        res.render('usernames',{
+                        res.status(200).render('usernames',{
                             pageA:page ? page : null,
                             datos:pagefinal,
                             numPages:nPages,
@@ -150,11 +150,11 @@ app.get('/trx/:id',(req,res)=>{
     var trxid=path.basename(req.path)
     buscarinfo(trxid,(datossend)=>{
         if(manejoerrores==true){
-            res.render("errores")
+            res.status(200).render("errores")
         }
         else{
             //res.send(datossend)
-            res.render('trx',{
+            res.status(200).render('trx',{
                 data:datossend
             })
          }

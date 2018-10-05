@@ -1,4 +1,4 @@
-    steem.api.setOptions({ url: 'https://rpc.smoke.io' });
+    steem.api.setOptions({ url: 'wss://rpc.smoke.io' });
     var block=null
     DynamicProperties()
     function blockesgene1(){
