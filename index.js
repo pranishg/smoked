@@ -6,24 +6,23 @@ const path = require("path")
 const favicon = require('serve-favicon');
 const nocache = require('nocache')
 const wls = require("wlsjs");
-wls.api.setOptions({ url: 'https://rpc.smoke.io' });
+wls.api.setOptions({ url: 'wss://rpc.smoke.io' });
 
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('port', process.env.PORT || 3000);
+
 app.engine('.html', require('ejs').__express);
 
 
 //middelwares
 app.use(morgan('dev'));
-app.use(nocache())
 app.disable('view cache');
 app.use(favicon(path.join(__dirname,'views','favicon.ico')));
 
 
-
-
+//public folder
 app.use(express.static(__dirname + '/public'));
 
 
@@ -33,7 +32,6 @@ app.get('/',(req,res)=>{
     res.status(200).render("index")
 })
 var data=[]
-var last_trans
 var datosU=[]
 var manejoerrores=false
 function cargarhistorial(usuario,start,callback){
@@ -46,26 +44,19 @@ function cargarhistorial(usuario,start,callback){
         if(response)
             datosU.push(response[0])
     })
-    wls.api.getAccountHistory(usuario, start , (start < 0) ? 10000 : Math.min(start, 10000), function(err, result) {
+    wls.api.getAccountHistory(usuario, start , 100, function(err, result) {
         if(err){
             manejoerrores=true
             if(callback)
                 callback(err)
         }
         if(result){
-        result.reverse();
-        for(var i = 0; i < result.length; i++) {
-            var trans = result[i];
-            data.push(result[i]);
-            // Save the ID of the last transaction that was processed.
-            last_trans=trans[0];
-        }
-        if(last_trans > 0 && last_trans != start && datosU[0])
-            cargarhistorial(usuario, last_trans, callback);
-            else {
-                if(callback)
-                    callback(data,null,datosU)
+            result.reverse();
+            for(var i = 0; i < result.length; i++) {
+                data.push(result[i]);
             }
+            if(callback)
+                callback(data,null,datosU)
         }else{
             callback(null,err,null)
         }
@@ -89,6 +80,10 @@ function confis(callback){
     });
 }
 
+app.get('/',()=>{
+    res.status(200).send('index')
+})
+
 
 app.get('/:id',(req,res)=>{
     sp=null
@@ -99,26 +94,20 @@ app.get('/:id',(req,res)=>{
         page=req.query.page
     if(user!="/@"){
         user.toLowerCase();
-        cargarhistorial(user.substr(2,user.length),-1,(data,err,datau)=>{
+        cargarhistorial(user.substr(2,user.length),(page ? (page*-100) : -100),(data,err,datau)=>{
             if(err)
-                res.status(200).render("errores")
+                res.render("errores")
             else{
                 confis((gsp)=>{
                     if(manejoerrores){
-                        res.status(400).render("errores")
+                        res.status(200).render("errores")
                     }
                     if(gsp){
-                        var nPages=parseInt(data.length)/100,
-                            pagef= page ? page*100 : 0,
-                            pagef2=(parseInt(pagef)+101)>data.length ? data.length : parseInt(pagef)+101,
-                            pagefinal= pagef && pagef2 ? data.slice(pagef,pagef2) : data.slice(0,101)
-
                         res.status(200).render('usernames',{
-                            pageA:page ? page : null,
-                            datos:pagefinal,
-                            numPages:nPages,
+                            datos:data,
                             u:user.substr(2,user.length),
                             datau:datau,
+                            page:page,
                             sp:gsp
                         })
                     }
@@ -126,7 +115,7 @@ app.get('/:id',(req,res)=>{
             }
         })
     }else{
-        res.status(400).send("hubo algun error con el @")
+        res.status(200).send("hubo algun error con el @")
     }
 })
 function buscarinfo(trxid,callback){
@@ -136,23 +125,23 @@ function buscarinfo(trxid,callback){
             if(callback)
                 callback(err)
         }
-        if(callback)
-            callback(result)
+        if(result){
+            if(callback)
+                callback(result)
+        }
     });
 }
 app.get('/trx/:id',(req,res)=>{
     console.log(req.path)
     var trxid=path.basename(req.path)
     buscarinfo(trxid,(datossend)=>{
-        if(manejoerrores==true){
-            res.status(400).render("errores")
+        if(manejoerrores){
+            res.status(200).render("errores")
         }
-        else{
-            //res.send(datossend)
-            res.status(200).render('trx',{
-                data:datossend
-            })
-         }
+        //res.send(datossend)
+        res.status(200).render('trx',{
+            data:datossend
+        })
     })
 })
 

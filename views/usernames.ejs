@@ -238,6 +238,22 @@
                         <center><h2 class="alert-heading">proxy witness: <%= datau[0].proxy %></h2></center>
                     </div>
                 <% } %>
+            </br>
+            <div class="opensource">
+                <center>
+                        <img class="img" src="https://open-paas.org/images/icon-opensource.svg" />
+                        <h4 class="project-title">
+                            <span>We’re open source</span>
+                        </h4>
+                        <p>
+                            <span>Check the GitHub repo and start contributing!</span>
+                        </p>
+                        <a href="https://github.com/chronopolis-dev/smoked" target="_blank" class="btn btn-primary">
+                            <span>Check GitHub</span>
+                        </a>
+
+                </center>
+            </div>
             </div>
             <div class="col-lg-8 col-sm-12">
                 <% datos.forEach((user)=>{ %>
@@ -387,25 +403,25 @@
                     <% } %>
         
                 <% }); %>
-                <% if(numPages>1){ %>
-                    <div class="">
-                        <nav class="textoajust" aria-label="...">
-                            <ul class="pagination pagination-md">
-                                <% var contadorpage=1%>
-                                <% for(var gh=1;gh< numPages;gh++) { %>
-                                    <li class="page-item">
-                                        <a class="page-link" href=<%= `/@${u}?page=${gh}` %> ><%= gh %></a>
-                                    </li>
-                                    <% contadorpage++ %>
-                                        <% if(contadorpage==10){ %>
-                                            <% contadorpage=0 %>
-                                            </br>
-                                        <% } %>
-                                <% } %>
-                            </ul>
-                        </nav>
-                    </div>
-                <% } %>
+                <center>
+                    <nav aria-label="...">
+                            <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href=<%= `/@${u}?page=${page-1}` %> tabindex="-1">Previous</a>
+                            </li>
+                            <% if(page!=undefined){ %>
+                                <li class="page-item"><a class="page-link" href=<%= `/@${u}?page=${page ? parseInt(page)-1 : 1}` %>><%= `${page ? parseInt(page)-1 : 1}` %></a></li>
+                            <% } %>
+                            <li class="page-item active">
+                                <a class="page-link"><%= `${page ? page : 1}` %> <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href=<%= `/@${u}?page=${page ? parseInt(page)+1 : 2}` %>><%= `${page ? parseInt(page)+1 : 2}` %></a></li>
+                            <li class="page-item">
+                                <a class="page-link" href=<%= `/@${u}?page=${page ? parseInt(page)+1 : 2}` %>>Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </center>
             </div>
         </div>
     </div>

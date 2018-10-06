@@ -39,3 +39,18 @@ a{
 a:link{
     text-decoration: none;
 }
+.img{
+    width: 200px;
+    height: 100px;
+}
+.opensource{
+    padding: 20px;
+    color: #f8f9fa;
+    background-color: #28a745;
+    border-color: #f8f9fa;
+    border-radius: 10px;
+}
+h4{
+    font-weight: 700;
+    color: #202020;
+}
