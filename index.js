@@ -12,7 +12,6 @@ wls.api.setOptions({ url: 'https://rpc.smoke.io' });
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.set('port', process.env.PORT || 3000);
-
 app.engine('.html', require('ejs').__express);
 
 
@@ -90,10 +89,6 @@ function confis(callback){
     });
 }
 
-app.get('/',()=>{
-    res.send('index')
-})
-
 
 app.get('/:id',(req,res)=>{
     sp=null
@@ -131,7 +126,7 @@ app.get('/:id',(req,res)=>{
             }
         })
     }else{
-        res.send("hubo algun error con el @")
+        res.status(200).send("hubo algun error con el @")
     }
 })
 function buscarinfo(trxid,callback){
