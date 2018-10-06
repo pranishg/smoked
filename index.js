@@ -105,7 +105,7 @@ app.get('/:id',(req,res)=>{
             else{
                 confis((gsp)=>{
                     if(manejoerrores){
-                        res.status(200).render("errores")
+                        res.status(400).render("errores")
                     }
                     if(gsp){
                         var nPages=parseInt(data.length)/100,
@@ -126,7 +126,7 @@ app.get('/:id',(req,res)=>{
             }
         })
     }else{
-        res.status(200).send("hubo algun error con el @")
+        res.status(400).send("hubo algun error con el @")
     }
 })
 function buscarinfo(trxid,callback){
@@ -145,7 +145,7 @@ app.get('/trx/:id',(req,res)=>{
     var trxid=path.basename(req.path)
     buscarinfo(trxid,(datossend)=>{
         if(manejoerrores==true){
-            res.status(200).render("errores")
+            res.status(400).render("errores")
         }
         else{
             //res.send(datossend)
