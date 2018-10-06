@@ -79,12 +79,6 @@ function confis(callback){
         }
     });
 }
-
-app.get('/',()=>{
-    res.status(200).send('index')
-})
-
-
 app.get('/:id',(req,res)=>{
     sp=null
     data=[]
