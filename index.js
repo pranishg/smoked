@@ -133,9 +133,11 @@ app.get('/trx/:id',(req,res)=>{
             res.status(200).render("errores")
         }
         //res.send(datossend)
-        res.status(200).render('trx',{
-            data:datossend
-        })
+        else{
+            res.status(200).render('trx',{
+                data:datossend
+            })
+        }
     })
 })
 
